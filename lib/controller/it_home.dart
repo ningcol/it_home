@@ -1,11 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:it_home/view/base/navigationIconView.dart';
 import 'package:flutter/cupertino.dart';
+
+import 'package:it_home/view/base/navigationIconView.dart';
 
 import 'package:it_home/controller/news.dart';
 import 'package:it_home/controller/lapin.dart';
 import 'package:it_home/controller/forum.dart';
 import 'package:it_home/controller/mine.dart';
+
+import 'package:it_home/tools/helper.dart';
+
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: new ThemeData(
+        primarySwatch: Colors.pink,
+      ),
+      home: new ITHome(),
+    );
+  }
+}
 
 
 class ITHome extends StatefulWidget {
@@ -40,19 +60,26 @@ class _ITHomeState extends State<ITHome> {
     ];
 
     _currentPage = _pageList[_currentIndex];
+
+
   }
 
 
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: new Scaffold(
-        body: new Center(
-          child: _currentPage,
-        ),
-        bottomNavigationBar: _getNavigationBar(),
+    ScreenUtil.instance = ScreenUtil(width: 750, height: 1334)..init(context);
+    print('设备宽度:${ScreenUtil.screenWidth}'); //Device width
+    print('设备高度:${ScreenUtil.screenHeight}'); //Device height
+    print(Helper.screenWithPx);
+    print(Helper.screenHeightPx);
+    print(Helper.screenWith);
+    print(Helper.screenHeight);
+    return new Scaffold(
+      body: new Center(
+        child: _currentPage,
       ),
+      bottomNavigationBar: _getNavigationBar(),
     );
   }
 

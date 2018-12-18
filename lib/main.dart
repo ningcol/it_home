@@ -3,4 +3,4 @@ import 'package:it_home/controller/it_home.dart';
 
 
 
-void main() => runApp(ITHome());
+void main() => runApp(MyApp());
