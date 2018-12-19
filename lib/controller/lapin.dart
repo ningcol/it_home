@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:it_home/tools/helper.dart';
 
 
@@ -21,19 +20,9 @@ class _LapinState extends State<Lapin> {
             new Column(
               children: <Widget>[
                 new Container(
-                  width: Helper.screenWith,
-                  height: ScreenUtil().setWidth(64*2),
+                  width: Helper.screenWithPx,
+                  height: 60,
                   color: Colors.yellow,
-                ),
-                new Container(
-                  width: Helper.screenWith,
-                  height: ScreenUtil().setWidth(64*2),
-                  color: Colors.green,
-                ),
-                new Container(
-                  width: Helper.screenWith,
-                  height: 64,
-                  color: Colors.blue,
                 ),
               ],
             )

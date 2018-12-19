@@ -68,13 +68,8 @@ class _ITHomeState extends State<ITHome> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.instance = ScreenUtil(width: 750, height: 1334)..init(context);
-    print('设备宽度:${ScreenUtil.screenWidth}'); //Device width
-    print('设备高度:${ScreenUtil.screenHeight}'); //Device height
     print(Helper.screenWithPx);
     print(Helper.screenHeightPx);
-    print(Helper.screenWith);
-    print(Helper.screenHeight);
     return new Scaffold(
       body: new Center(
         child: _currentPage,
