@@ -20,6 +20,7 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
   List<SliderModel> _list;          // 注意list为null
   List<String> _sliderImages = [];  // 注意list不为null
 
+
   final List<Tab> _myTabs = <Tab>[
     new Tab(text: '最新'),
     new Tab(text: 'Tab2'),
@@ -73,7 +74,7 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
       return new Column(
         children: <Widget>[
           new Container(
-            height: Helper.screenHeightPx/9,
+            height: Helper.screenHeightPx/(Helper.pixelRatio * 5) + 20,
             child: swiper(),
           ),
           new Container(
@@ -88,7 +89,6 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
       return new Center(child: new Text(tabText));
     }
   }
-
 
   Widget swiper(){
     return new Swiper(

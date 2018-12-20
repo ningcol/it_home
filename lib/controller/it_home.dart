@@ -61,6 +61,9 @@ class _ITHomeState extends State<ITHome> {
 
     _currentPage = _pageList[_currentIndex];
 
+    print(Helper.screenWithPx);
+    print(Helper.screenHeightPx);
+    print(Helper.pixelRatio);
 
   }
 
@@ -68,8 +71,6 @@ class _ITHomeState extends State<ITHome> {
 
   @override
   Widget build(BuildContext context) {
-    print(Helper.screenWithPx);
-    print(Helper.screenHeightPx);
     return new Scaffold(
       body: new Center(
         child: _currentPage,
