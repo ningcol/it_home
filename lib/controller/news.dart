@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:it_home/view/newsCell.dart';
+
 import 'package:it_home/model/sliderModel.dart';
+import 'package:it_home/model/newsListModel.dart';
 
 import 'package:it_home/tools/helper.dart';
-
 import 'package:it_home/tools/networkUtil.dart';
 
 
@@ -19,6 +21,7 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
   TabController _tabController;
   List<SliderModel> _list;          // 注意list为null
   List<String> _sliderImages = [];  // 注意list不为null
+  List<Toplist> _newsList = [];
 
 
   final List<Tab> _myTabs = <Tab>[
@@ -41,7 +44,8 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
     super.initState();
     _tabController = new TabController(length: _myTabs.length, vsync: this);
 
-    getSliderData();
+    _getSliderData();
+    _getNewsData();
 
   }
 
@@ -75,14 +79,11 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
         children: <Widget>[
           new Container(
             height: Helper.screenHeightPx/(Helper.pixelRatio * 5) + 20,
-            child: swiper(),
+            child: _swiper(),
           ),
-          new Container(
-            height: 40,
-            width: 40,
-            color: Colors.yellow,
-          ),
-          new Text(_list[0].title),
+          new Expanded(
+            child: _buildListView(),
+          )
         ],
       );
     } else {
@@ -90,7 +91,7 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
     }
   }
 
-  Widget swiper(){
+  Widget _swiper(){
     return new Swiper(
       itemBuilder: (BuildContext context,int index){
         return new Image.network(_sliderImages[index],fit: BoxFit.fill,);
@@ -107,12 +108,38 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
     );
   }
 
+  Widget _buildListView(){
+    return new ListView.builder(
+      itemCount: _newsList.length,
+      itemBuilder: (context, index){
+        return NewsCell(model: _newsList[index]);
+      },
+    );
+  }
 
-  getSliderData(){
+
+
+  _getSliderData(){
     NetworkUtil.get("/json/slide/index", (data) {
 //      print(data);
       _list = getSliderModelList(data);   // 这里有个坑，it之家后台返回的轮播图有两种跳转类型，但是一个是int一个是String,处理方式（json['opentype'] == 1 ? json['link'].toString() : json['link'] as String,）
       getSwiperImage();
+      setState((){
+      });
+    }, errorCallBack: (errorMsg) {
+      print("error:" + errorMsg);
+    });
+  }
+
+  _getNewsData(){
+    NetworkUtil.get("/json/newslist/news", (data) {
+      NewsListModel newsModel = new NewsListModel.fromJson(data);
+      _newsList.addAll(newsModel.toplist);
+      for (Newslist newsModel in newsModel.newslist) {
+          Toplist top = new Toplist('', '', '', newsModel.newsid, newsModel.title, newsModel.postdate, newsModel.orderdate,
+              newsModel.description, newsModel.image, newsModel.hitcount, newsModel.commentcount, newsModel.cid, newsModel.sid, newsModel.url);
+          _newsList.add(top);
+      }
       setState((){
       });
     }, errorCallBack: (errorMsg) {

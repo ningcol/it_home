@@ -11,7 +11,7 @@ SliderModel _$SliderModelFromJson(Map<String, dynamic> json) {
       json['title'] as String,
       json['starttime'] as String,
       json['endtime'] as String,
-      json['opentype'] == 1 ? json['link'].toString() : json['link'] as String,
+      json['link'] as String,
       json['opentype'] as int,
       json['device'] as String,
       json['image'] as String);
