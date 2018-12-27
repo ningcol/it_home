@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:it_home/view/listPageView.dart';
 import 'package:it_home/view/newsCell.dart';
 
 import 'package:it_home/model/sliderModel.dart';
@@ -73,23 +74,33 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
     );
   }
 
+
+
   Widget tabPage(String tabText){
     if (tabText == _myTabs[0].text){
-      return new Column(
-        children: <Widget>[
-          new Container(
-            height: Helper.screenHeightPx/(Helper.pixelRatio * 5) + 20,
-            child: _swiper(),
-          ),
-          new Expanded(
-            child: _buildListView(),
-          )
-        ],
+      return new ListPageView(
+        _newsList,
+        headerList: [1],
+        itemWidgetCreator: (BuildContext context, index){
+          return new NewsCell(model: _newsList[index]);
+        },
+        headerCreator: (BuildContext context, int position) {
+          if(position == 0) {
+            return new Container(
+              height: Helper.screenHeightPx/(Helper.pixelRatio * 5) + 20,
+              child: _swiper()
+            );
+          } else {
+//            return new Padding(padding: EdgeInsets.all(10.0), child:
+//            Text('$position -----header------- '),);
+          }
+        },
       );
     } else {
       return new Center(child: new Text(tabText));
     }
   }
+
 
   Widget _swiper(){
     return new Swiper(
@@ -104,15 +115,6 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
       ),
       onTap: (int index){
         print(index);
-      },
-    );
-  }
-
-  Widget _buildListView(){
-    return new ListView.builder(
-      itemCount: _newsList.length,
-      itemBuilder: (context, index){
-        return NewsCell(model: _newsList[index]);
       },
     );
   }

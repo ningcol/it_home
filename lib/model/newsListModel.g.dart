@@ -33,8 +33,12 @@ Toplist _$ToplistFromJson(Map<String, dynamic> json) {
       json['topplat'] as String,
       json['newsid'] as int,
       json['title'] as String,
-      json['postdate'] as String,
-      json['orderdate'] as String,
+      json['postdate'] == null
+          ? null
+          : DateTime.parse(json['postdate'] as String),
+      json['orderdate'] == null
+          ? null
+          : DateTime.parse(json['orderdate'] as String),
       json['description'] as String,
       json['image'] as String,
       json['hitcount'] as int,
@@ -50,8 +54,8 @@ Map<String, dynamic> _$ToplistToJson(Toplist instance) => <String, dynamic>{
       'topplat': instance.topplat,
       'newsid': instance.newsid,
       'title': instance.title,
-      'postdate': instance.postdate,
-      'orderdate': instance.orderdate,
+      'postdate': instance.postdate?.toIso8601String(),
+      'orderdate': instance.orderdate?.toIso8601String(),
       'description': instance.description,
       'image': instance.image,
       'hitcount': instance.hitcount,
@@ -65,8 +69,12 @@ Newslist _$NewslistFromJson(Map<String, dynamic> json) {
   return Newslist(
       json['newsid'] as int,
       json['title'] as String,
-      json['postdate'] as String,
-      json['orderdate'] as String,
+      json['postdate'] == null
+          ? null
+          : DateTime.parse(json['postdate'] as String),
+      json['orderdate'] == null
+          ? null
+          : DateTime.parse(json['orderdate'] as String),
       json['description'] as String,
       json['image'] as String,
       json['hitcount'] as int,
@@ -79,8 +87,8 @@ Newslist _$NewslistFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$NewslistToJson(Newslist instance) => <String, dynamic>{
       'newsid': instance.newsid,
       'title': instance.title,
-      'postdate': instance.postdate,
-      'orderdate': instance.orderdate,
+      'postdate': instance.postdate?.toIso8601String(),
+      'orderdate': instance.orderdate?.toIso8601String(),
       'description': instance.description,
       'image': instance.image,
       'hitcount': instance.hitcount,

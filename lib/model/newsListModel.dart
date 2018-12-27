@@ -43,10 +43,10 @@ class Toplist extends Object {
   String title;
 
   @JsonKey(name: 'postdate')
-  String postdate;
+  DateTime postdate;
 
   @JsonKey(name: 'orderdate')
-  String orderdate;
+  DateTime orderdate;
 
   @JsonKey(name: 'description')
   String description;
@@ -88,10 +88,10 @@ class Newslist extends Object {
   String title;
 
   @JsonKey(name: 'postdate')
-  String postdate;
+  DateTime postdate;
 
   @JsonKey(name: 'orderdate')
-  String orderdate;
+  DateTime orderdate;
 
   @JsonKey(name: 'description')
   String description;
